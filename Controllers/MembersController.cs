@@ -8,7 +8,7 @@ namespace DatingAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MemberController(AppDbContext dbContext) : ControllerBase
+    public class MembersController(AppDbContext dbContext) : ControllerBase
     {
         //[HttpGet("{id}")]
         [HttpGet]
