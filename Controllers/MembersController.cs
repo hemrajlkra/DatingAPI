@@ -1,14 +1,11 @@
 ﻿using DatingAPI.Data;
 using DatingAPI.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatingAPI.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class MembersController(AppDbContext dbContext) : ControllerBase
+    public class MembersController(AppDbContext dbContext) : ApiBaseController
     {
         //[HttpGet("{id}")]
         [HttpGet]
