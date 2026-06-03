@@ -1,4 +1,6 @@
 using DatingAPI.Data;
+using DatingAPI.Interfaces;
+using DatingAPI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
 using Microsoft.OpenApi.Models;
@@ -20,7 +22,7 @@ builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "DatingAPI", Version = "v1" });
 });
-
+builder.Services.AddScoped<ITokenService, TokenService>();
 var app = builder.Build();
 
 app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod()

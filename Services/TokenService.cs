@@ -11,7 +11,7 @@ namespace DatingAPI.Services
     {
         public string CreateToken(AppUser user)
         {
-            var tokenKey = configuration["token"] ?? throw new Exception("Can't get token Key");
+            var tokenKey = configuration["Token"] ?? throw new Exception("Can't get token Key");
             if (tokenKey.Length < 64)
                 throw new Exception("Token key needs to be >= 64 characters length");
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenKey));
