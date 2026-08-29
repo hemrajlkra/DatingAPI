@@ -1,6 +1,7 @@
 ﻿using DatingAPI.Data;
 using DatingAPI.DTOs;
 using DatingAPI.Entities;
+using DatingAPI.Extensions;
 using DatingAPI.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +10,7 @@ using System.Text;
 
 namespace DatingAPI.Controllers
 {
-
+    
     public class AccountController(AppDbContext dbContext, ITokenService tokenService) : ApiBaseController
     {
         [HttpPost("register")] //api/account/register
@@ -28,13 +29,7 @@ namespace DatingAPI.Controllers
                 return BadRequest($"Account already exists with email {dto.Email}");
             dbContext.Users.Add(user);
             dbContext.SaveChanges();
-            return new UserDto
-            {
-                Id = user.Id,
-                DisplayName = user.DisplayName,
-                Email = user.Email,
-                Token = tokenService.CreateToken(user)
-            };
+            return user.ToDo(tokenService);
 
         }
         private async Task<bool> UserExists(string email)
@@ -55,13 +50,7 @@ namespace DatingAPI.Controllers
                 if (computeHash[i] != user.PasswordHash[i])
                     return Unauthorized("invalid email or password!!");
             }
-            return new UserDto
-            {
-                Id = user.Id,
-                DisplayName = user.DisplayName,
-                Email = user.Email,
-                Token = tokenService.CreateToken(user)
-            };
+            return user.ToDo(tokenService);
         } 
 
     }
